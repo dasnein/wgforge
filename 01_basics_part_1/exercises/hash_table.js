@@ -4,6 +4,9 @@
  * Ключом должна быть строка.
  */
 
+/*
+*  functions isString() & getTag() are borrowed from lodash
+*/
 function getTag(value) {
   if (value == null) {
     return value === undefined ? '[object Undefined]' : '[object Null]'
@@ -36,7 +39,6 @@ export default class HashTable {
         }
       }
 
-      this.set(key, hash);
       return hash;
     } else {
       throw Error('Key is not a String!');
@@ -48,7 +50,7 @@ export default class HashTable {
    */
 
   get(key) {
-    return this.memory[key];
+    return this.memory[this.hashKey(key)];
   }
 
   /**
@@ -56,7 +58,7 @@ export default class HashTable {
    */
 
   set(key, value) {
-    this.memory[key] = value;
+    this.memory[this.hashKey(key)] = value;
   }
 
   /**
@@ -65,6 +67,6 @@ export default class HashTable {
    */
 
   remove(key) {
-    this.memory[key] = undefined;
+    delete this.memory[this.hashKey(key)];
   }
 }
