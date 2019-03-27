@@ -10,12 +10,12 @@ function getTag(value) {
   }
   return toString.call(value)
 }
- 
+
 function isString(value) {
   const type = typeof value
   return type == 'string' || (type == 'object' && value != null && !Array.isArray(value) && getTag(value) == '[object String]')
 }
- 
+
 export default class HashTable {
   /**
    * в качестве "памяти" используем массив
@@ -23,18 +23,21 @@ export default class HashTable {
   constructor() {
     this.memory = [];
   }
-
-  /**
-   * Хеширующая функция.
-   * Принимает ключ (тип строка) и возвращает уникальный адрес.
-   * hashKey('abc') =>  17263
-   * hashKey('xyz') => 283902
-   */
-
+  
   hashKey(key) {
     if (isString(key)) {
-      const value = +key.split('').map(v => v.charCodeAt()).join('');
-      this.memory[this.memory.length] = [key, value];
+      let hash = 0;
+
+      if (key.length > 0) {
+        for (var i = 0; i < key.length; i++) {
+          const char = key.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash;
+        }
+      }
+
+      this.set(key, hash);
+      return hash;
     } else {
       throw Error('Key is not a String!');
     }
@@ -45,15 +48,7 @@ export default class HashTable {
    */
 
   get(key) {
-    let value;
-
-    this.memory.forEach(v => {
-      if (v[0] === key) {
-        value = v[1];
-      }
-    });
-
-    return value;
+    return this.memory[key];
   }
 
   /**
@@ -61,11 +56,7 @@ export default class HashTable {
    */
 
   set(key, value) {
-    if (isString(key)) {
-      this.memory[this.memory.length] = [key, value];
-    } else {
-      throw Error('Key is not a String!');
-    }
+    this.memory[key] = value;
   }
 
   /**
@@ -74,24 +65,6 @@ export default class HashTable {
    */
 
   remove(key) {
-    if (isString(key)) {
-      let value;
-
-      this.memory.forEach((v, i, arr) => {
-        if (value) {
-          arr[i - 1] = arr[i];
-        } else if (v[0] === key) {
-          value = v[1];
-        }
-      });
-
-      if (value) {
-        this.memory.length = this.memory.length - 1;
-      }
-
-      return value;
-    } else {
-      throw Error('Key is not a String!');
-    }
+    this.memory[key] = undefined;
   }
 }
