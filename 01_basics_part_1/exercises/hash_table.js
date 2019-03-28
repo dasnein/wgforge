@@ -5,7 +5,7 @@
  */
 
 /*
-*  functions isString() & getTag() are borrowed from lodash
+*  functions isString() and getTag() are borrowed from lodash
 */
 function getTag(value) {
   if (value == null) {
@@ -46,26 +46,23 @@ export default class HashTable {
   }
 
   /**
-   * Метод для получения данных из хеш-таблицы по ключу.
-   */
-
+  * Метод для получения данных из хеш-таблицы по ключу.
+  */
   get(key) {
     return this.memory[this.hashKey(key)];
   }
 
   /**
-   * Добавляем значение в таблицу с заданным ключом.
-   */
-
+  * Добавляем значение в таблицу с заданным ключом.
+  */
   set(key, value) {
     this.memory[this.hashKey(key)] = value;
   }
 
   /**
-   * Функция удаления из хеш-таблицы.
-   * Принимает ключ.
-   */
-
+  * Функция удаления из хеш-таблицы.
+  * Принимает ключ.
+  */
   remove(key) {
     delete this.memory[this.hashKey(key)];
   }
