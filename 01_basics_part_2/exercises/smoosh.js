@@ -16,17 +16,51 @@
  */
 
 function smoosh(arr) {
-  return 
+  if (isArray(arr)) {
+    let res = [];
+
+    arr.forEach(v => {
+      if (Array.isArray(v)) {
+        res = res.concat(smoosh(v));
+      } else {
+        res.push(v);
+      }
+    });
+
+    return res;
+  }
 }
 
-function squeeze() {
-  // your code here
+function squeeze(arr) {
+  if (isArray(arr)) {
+    function smooshInSqueeze(smooshArr) {
+      let res = [];
+
+      smooshArr.forEach(v => {
+        if (Array.isArray(v)) {
+          res = res.concat(smooshInSqueeze(v));
+        } else {
+          res.push(v);
+        }
+      });
+
+      return res;
+    }
+
+    arr.forEach((v, i) => {
+      if (Array.isArray(v)) {
+        arr.splice(i, 1, ...smooshInSqueeze(v));
+      }
+    });
+
+    return arr;
+  }
 }
 
 function isArray(arr) {
-  if (Array.isArray(arr)) return true;
+  if (arr instanceof Array) return true;
 
-  throw 'argument should be an array';
+  throw new Error('argument should be an array');
 }
 
 export { smoosh, squeeze };
