@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Calculator</title>
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <form action="#" class="calculator">
+    <div class="row">
+      <input type="text" id="operations" disabled>
+    </div>
+    <div class="row operators">
+      <button type="button" class="operator">+</button>
+      <button type="button" class="operator">-</button>
+      <button type="button" class="operator">*</button>
+      <button type="button" class="operator">/</button>
+      <button type="button" data-action="delete">⌫ Delete</button>
+      <button type="reset" data-action="reset">↻ Reset</button>
+    </div>
+    <div class="row numbers">
+      <button type="button" class="operator">0</button>
+      <button type="button" class="operator">1</button>
+      <button type="button" class="operator">2</button>
+      <button type="button" class="operator">3</button>
+      <button type="button" class="operator">4</button>
+      <button type="button" class="operator">5</button>
+      <button type="button" class="operator">6</button>
+      <button type="button" class="operator">7</button>
+      <button type="button" class="operator">8</button>
+      <button type="button" class="operator">9</button>
+    </div>
+    <div class="row">
+      <button type="submit">Calculate</button>
+    </div>
+  </form>
+  
+  <script src="./main.js"></script>
+</body>
+</html>
